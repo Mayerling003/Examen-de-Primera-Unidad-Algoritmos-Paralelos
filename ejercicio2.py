@@ -6,7 +6,7 @@ lock=threading.Lock()
 resultados_sec=[]
 lineas_totales=100000
 def busqueda_paralela(coordenada,inicio,fin,resultados_compartidos):
-    with open("pasos.txt","r") as f:
+    with open("posiciones.txt","r") as f:
         for idx,linea in enumerate(f):
             if idx<inicio:continue
             if idx>=fin:break
@@ -23,7 +23,7 @@ def busqueda_paralela(coordenada,inicio,fin,resultados_compartidos):
                             resultados_compartidos.append({"linea":idx,"x":coords[0],"y":coords[1]})
                 except (ValueError,IndexError):continue
 def contar_frecuencias_paralelo(inicio,fin,frecuencias_compartidas):
-    with open("pasos.txt","r") as f:
+    with open("posiciones.txt","r") as f:
         for idx,linea in enumerate(f):
             if idx<inicio:continue
             if idx>=fin:break
@@ -37,7 +37,7 @@ def contar_frecuencias_paralelo(inicio,fin,frecuencias_compartidas):
                         frecuencias_compartidas[(x,y)]=frecuencias_compartidas.get((x,y),0)+1
                 except (ValueError,IndexError):continue
 def busqueda_secuencial(coordenada):
-    with open("pasos.txt","r") as f:
+    with open("posiciones.txt","r") as f:
         for idx,linea in enumerate(f):
             puntos=linea.strip().split(' ')
             for punto in puntos:
@@ -51,7 +51,7 @@ def busqueda_secuencial(coordenada):
                         resultados_sec.append({"linea":idx,"x":coords[0],"y":coords[1]})
                 except (ValueError,IndexError):continue
 def contar_frecuencias_secuencial():
-    with open("pasos.txt","r") as f:
+    with open("posiciones.txt","r") as f:
         for linea in f:
             puntos=linea.strip().split(' ')
             for punto in puntos:
@@ -101,3 +101,4 @@ if __name__=="__main__":
     print("Top 10 coordenadas más frecuentes (secuencial):")
     for coord,cant in contador_sec.most_common(10):print(f"Coordenada {coord} aparece {cant} veces.")
     print("="*30)
+
